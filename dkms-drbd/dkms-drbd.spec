@@ -1,13 +1,13 @@
 Name:           dkms-drbd
 Version:        9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LINBIT DRBD kernel module
 
 License:        GPLv2
 URL:            https://github.com/LINBIT/drbd
 Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires:  git /usr/bin/pathfix.py
+BuildRequires:  git /usr/bin/pathfix.py make
 Requires:       dkms, kernel >= 5.17, kernel-devel >= 5.17, kmod, coccinelle >= 1.0.8
 
 %define NAME_VER %{name}-%{version}
@@ -23,6 +23,7 @@ hardware such as shared SCSI buses or Fibre Channel.
 git clone --branch drbd-%{version} --depth 500 https://github.com/LINBIT/drbd.git drbd-repo
 cd drbd-repo
 git submodule update --init --recursive
+make drbd/.drbd_git_revision
 cd %{_builddir}/%{NAME_VER}
 
 %install
@@ -45,6 +46,10 @@ dkms uninstall drbd/%{version}
 dkms remove drbd/%{version}
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-4
+- Fix: Missing file '.drbd_git_revision'
+- Fix: Your DRBD source tree is broken. Unpack again.
+
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-3
 - Fix: incorrect src path
 - Fix Err: cannot open: FileNotFoundError(2, 'No such file or directory')
