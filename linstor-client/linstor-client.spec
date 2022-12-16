@@ -1,7 +1,7 @@
 Summary: DRBD distributed resource management utility
 Name: linstor-client
 Version: 1.16.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3
 Group: System Environment/Daemons
 Source0: https://pkg.linbit.com//downloads/linstor/%{name}-%{version}.tar.gz
@@ -19,7 +19,9 @@ This client program communicates to controller node which manages the resources
 
 %prep
 %setup -n %{NAME_VERS} -n %{NAME_VERS}
-git clone --branch v%{version} https://github.com/LINBIT/linstor-client.git .
+git clone --branch v%{version} https://github.com/LINBIT/linstor-client.git
+mv linstor-client/* ./
+rm -rf linstor-client
 
 %build
 /usr/bin/python3 setup.py build
@@ -34,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 1.16.0-5
+- fix destination path '.' already exists and is not an empty directory
+
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 1.16.0-4
 - Clone into root dir
 - Fix:  No such file or directory
