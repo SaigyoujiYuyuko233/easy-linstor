@@ -1,6 +1,6 @@
 Name:           dkms-drbd
 Version:        9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LINBIT DRBD kernel module
 
 License:        GPLv2
@@ -26,11 +26,10 @@ git submodule update --init --recursive
 cd %{_builddir}/%{NAME_VER}
 
 %install
-mkdir -p %{buildroot}/%{_usrsrc}/drbd-%{version}
+mkdir -p %{buildroot}/%{_usrsrc}
 cp -r %{_builddir}/%{NAME_VER}/drbd-repo/drbd %{buildroot}/%{_usrsrc}/drbd-%{version}
 cp %{_builddir}/%{NAME_VER}/dkms.conf %{buildroot}/%{_usrsrc}/drbd-%{version}/dkms.conf
-
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}/%{_usrsrc}/drbd-%{version}/drbd-kernel-compat/scripts/*
+pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}/%{_usrsrc}/drbd-%{version}/drbd-kernel-compat/scripts/*.py
 
 %files
 %{_usrsrc}/drbd-%{version}
@@ -46,6 +45,10 @@ dkms uninstall drbd/%{version}
 dkms remove drbd/%{version}
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-3
+- Fix: incorrect src path
+- Fix Err: cannot open: FileNotFoundError(2, 'No such file or directory')
+
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-2
 - Fix: dkms src path not exist (hgk-saigyoujiyuyuko@outlook.com)
 - Fix: Submodule not exist
