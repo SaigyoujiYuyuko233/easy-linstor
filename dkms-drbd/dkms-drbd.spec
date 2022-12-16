@@ -1,6 +1,6 @@
 Name:           dkms-drbd
 Version:        9.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        LINBIT DRBD kernel module
 
 License:        GPLv2
@@ -46,6 +46,9 @@ dkms uninstall drbd/%{version}
 dkms remove drbd/%{version}
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-5
+- remove CONFIG_INFINIBAND (hgk-saigyoujiyuyuko@outlook.com)
+- Fix:  Build of drbd_transport_rdma.ko failed
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-4
 - Fix: Missing file '.drbd_git_revision'
 - Fix: Your DRBD source tree is broken. Unpack again.
