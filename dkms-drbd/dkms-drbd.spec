@@ -1,6 +1,6 @@
 Name:           dkms-drbd
 Version:        9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LINBIT DRBD kernel module
 
 License:        GPLv2
@@ -8,7 +8,7 @@ URL:            https://github.com/LINBIT/drbd
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  git /usr/bin/pathfix.py
-Requires:       dkms, kernel >= 5.17, kernel-devel >= 5.17, kmod
+Requires:       dkms, kernel >= 5.17, kernel-devel >= 5.17, kmod, coccinelle >= 1.0.8
 
 %define NAME_VER %{name}-%{version}
 
@@ -20,11 +20,14 @@ hardware such as shared SCSI buses or Fibre Channel.
 
 %prep
 %setup
-git clone --branch drbd-%{version} --depth 1 https://github.com/LINBIT/drbd.git drbd-repo
+git clone --branch drbd-%{version} --depth 500 https://github.com/LINBIT/drbd.git drbd-repo
+cd drbd-repo
+git submodule update --init --recursive
+cd %{_builddir}/%{NAME_VER}
 
 %install
 mkdir -p %{buildroot}/%{_usrsrc}/drbd-%{version}
-cp -r %{_builddir}/%{NAME_VER}/drbd-repo/drbd/* %{buildroot}/%{_usrsrc}/drbd-%{version}
+cp -r %{_builddir}/%{NAME_VER}/drbd-repo/drbd %{buildroot}/%{_usrsrc}/drbd-%{version}
 cp %{_builddir}/%{NAME_VER}/dkms.conf %{buildroot}/%{_usrsrc}/drbd-%{version}/dkms.conf
 
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}/%{_usrsrc}/drbd-%{version}/drbd-kernel-compat/scripts/*
@@ -43,6 +46,9 @@ dkms uninstall drbd/%{version}
 dkms remove drbd/%{version}
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-2
+- Fix: dkms src path not exist (hgk-saigyoujiyuyuko@outlook.com)
+- Fix: Submodule not exist
+- Fix: Broken DRDB src tree
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.1-1
 - Standard dkms package
-
