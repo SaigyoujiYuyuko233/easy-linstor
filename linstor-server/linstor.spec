@@ -1,6 +1,6 @@
 Name: linstor
 Version: 1.20.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: LINSTOR SDS
 BuildArch: noarch
 %define GRADLE_TASKS installdist
@@ -62,7 +62,7 @@ cp %{_builddir}/%{NAME_VERS}/docs/linstor.toml-example %{buildroot}/%{_sysconfdi
 ### common
 %package common
 Summary: Common files shared between controller and satellite
-Requires: jre-headless
+Requires: java-1.8.0-openjdk-headless
 
 %description common
 Linstor shared components between linstor-controller and linstor-satellite
@@ -80,7 +80,7 @@ Linstor shared components between linstor-controller and linstor-satellite
 %package controller
 Summary: Linstor controller specific files
 Requires: linstor-common = %{version}
-Requires(post): jre-headless
+Requires(post): java-1.8.0-openjdk-headless
 
 %description controller
 Linstor controller manages linstor satellites and persistant data storage.
@@ -136,6 +136,9 @@ test -f %{_bindir}/firewall-cmd && firewall-cmd --reload --quiet || :
 %systemd_preun linstor-satellite.service
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 1.20.2-2
+- Switch jre-headless to jdk-1.8.0
+
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 1.20.2-1
 - import official linstor-server spec
 - Fix gradle path
