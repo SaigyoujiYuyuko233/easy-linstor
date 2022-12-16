@@ -46,7 +46,7 @@ Summary: DRBD driver for Linux
 %global upstream_version 9.22.0
 %global rpm_version %(echo "9.22.0" | sed -e 's/-rc/~rc/' -e 's/-alpha/~alpha/')
 Version: %{rpm_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://pkg.linbit.com/downloads/drbd/utils/drbd-utils-%{upstream_version}.tar.gz
 License: GPLv2+
 ExclusiveOS: linux
@@ -73,6 +73,7 @@ BuildRequires: gcc-c++
 %if %{with bashcompletion}
 Requires: drbd-bash-completion = %{version}-%{release}
 %endif
+BuildRequires: gcc flex glibc-devel make automake systemd-udev
 
 %description
 DRBD mirrors a block device over the network to another machine.
@@ -547,6 +548,9 @@ fi
 
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.22.0-2
+- fix: aclocal: command not found
+
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 9.22.0-1
 - Import spec with official build args
 
