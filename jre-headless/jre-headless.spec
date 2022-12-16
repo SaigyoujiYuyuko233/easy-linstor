@@ -1,6 +1,6 @@
 Name:           jre-headless
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Virtual package for linstor-server
 
 License:        MIT
@@ -10,6 +10,7 @@ Requires:       java-1.8.0-openjdk-headless
 
 %description
 This is a virtual package for linstor-common/controller/satellite which require 15 > java-jre >= 1.8
+Depreciated, do NOT use.
 
 %prep
 
@@ -20,6 +21,9 @@ This is a virtual package for linstor-common/controller/satellite which require 
 %files
 
 %changelog
+* Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 1.8.0-2
+- Depreciated
+
 * Fri Dec 16 2022 SaigyoujiYuyuko233 <HGK-SaigyoujiYuyuko@outlook.com> 1.8.0-1
 - Create this package with java 1.8.0 support.
 
